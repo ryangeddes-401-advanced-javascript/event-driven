@@ -18,6 +18,8 @@
   "homepage": "https://github.com/ryangeddes-401-advanced-javascript/event-driven#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "faker": "^5.1.0"
+    "faker": "^5.1.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.1"
   }
 }

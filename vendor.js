@@ -16,6 +16,10 @@ const faker = require('faker');
 const caps = require('./caps.js');
 const driver = require('./driver.js');
 
+caps.emit('join', process.env.STORENAME);
+
+
+
 setInterval(() => {
   let order = {
     store: storeName,
@@ -26,6 +30,11 @@ setInterval(() => {
   events.emit('pickup', order);
 }, 2000);
 
+events.on('delivered', payload => thanks('delivered', payload));
+
+function thanks(event, payload) {
+  console.log('VENDOR: Thank you for delivering order', payload.orderID);
+}
 
 
 
