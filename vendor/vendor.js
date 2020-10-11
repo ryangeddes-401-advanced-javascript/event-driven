@@ -10,13 +10,17 @@
 // Log “thank you” to the console
 
 require('dotenv').config();
-const events = require('./event-pool');
+// const events = require('./event-pool');
 const storeName = process.env.STORENAME;
 const faker = require('faker');
-const caps = require('./caps.js');
-const driver = require('./driver.js');
+//const caps = require('./caps.js');
+// const driver = require('./driver.js');
 
-caps.emit('join', process.env.STORENAME);
+const io = require('socket.io-client');
+let host = 'http://localhost:3000';
+const hubConnection = io.connect(host);
+const vendorConnection = io.connect(`${host}/caps-namespace`);
+vendorConnection.emit('join', storeName);
 
 
 
@@ -27,10 +31,10 @@ setInterval(() => {
     customer: faker.name.firstName() + ' ' + faker.name.lastName(),
     address: faker.address.streetAddress(),
   };
-  events.emit('pickup', order);
+  hubConnection.emit('pickup', order);
 }, 2000);
 
-events.on('delivered', payload => thanks('delivered', payload));
+vendorConnection.on('delivered', payload => thanks('delivered', payload));
 
 function thanks(event, payload) {
   console.log('VENDOR: Thank you for delivering order', payload.orderID);

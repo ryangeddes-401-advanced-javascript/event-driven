@@ -11,11 +11,19 @@
 
 
 
-'use strict';
+require('dotenv').config();
+const io = require('socket.io-client');
+let host = 'http://localhost:3000';
 
-const events = require('./event-pool.js');
 
-events.on('pickup', payload => pickup(payload));
+const hubConnection = io.connect(host);
+const vendorConnection = io.connect(`${host}/caps-namespace`);
+
+//const events = require('./event-pool.js');
+
+vendorConnection.emit('join', process.env.STORENAME);
+hubConnection.on('pickup', payload => pickup(payload));
+
 
 function pickup(payload) {
   setTimeout(driver, 1000, payload);
@@ -25,12 +33,13 @@ function pickup(payload) {
 function driver(payload) {
   let orderid = payload.orderID;
   console.log('DRIVER: picked up', orderid);
-  events.emit('in-transit', payload);
+  vendorConnection.emit('in-transit', payload);
 
 }
 
 function delivered(payload) {
   let orderid = payload.orderID;
   console.log('DRIVER: delivered', orderid);
-  events.emit('delivered', payload);
+  vendorConnection.emit('delivered', payload);
 }
+
