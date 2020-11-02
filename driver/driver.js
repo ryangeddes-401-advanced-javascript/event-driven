@@ -21,7 +21,9 @@ const vendorConnection = io.connect(`${host}/caps-namespace`);
 
 //const events = require('./event-pool.js');
 
-vendorConnection.emit('join', process.env.STORENAME);
+
+//DO I NEED THIS?
+//vendorConnection.emit('join', process.env.STORENAME);
 hubConnection.on('pickup', payload => pickup(payload));
 
 

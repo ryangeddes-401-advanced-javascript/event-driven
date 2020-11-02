@@ -14,6 +14,7 @@ io.on('connection', (socket) => {
   socket.on('pickup', payload => log('pickup', payload));
   //socket.on('in-transit', payload => log('in-transit', payload));
   //socket.on('delivered', payload => log('delivered', payload));
+
 });
 
 const caps = io.of('/caps-namespace');
@@ -31,12 +32,12 @@ caps.on('connection', (socket) => {
 
   socket.on('in-transit', (payload) => {
     log('in-transit', payload);
-    caps.to(`${payload.store}`).emit('in-transit', payload);
+    // caps.to(`${payload.store}`).emit('in-transit', payload);
   });
 
   socket.on('delivered', (payload) => {
     log('delivered', payload);
-    caps.to(`${payload.store}`).emit('delivered', payload);
+    caps.to(payload.store).emit('delivered', payload);
   });
 
 });
