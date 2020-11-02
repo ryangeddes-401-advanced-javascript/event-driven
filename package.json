@@ -1,0 +1,25 @@
+{
+  "name": "event-driven",
+  "version": "1.0.0",
+  "description": "event server",
+  "main": "hub.js",
+  "scripts": {
+    "test": "jest --verbose --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryangeddes-401-advanced-javascript/event-driven.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryangeddes-401-advanced-javascript/event-driven/issues"
+  },
+  "homepage": "https://github.com/ryangeddes-401-advanced-javascript/event-driven#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "faker": "^5.1.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.1"
+  }
+}
